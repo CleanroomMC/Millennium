@@ -1,0 +1,16 @@
+[
+{
+  "modid": "bundles",
+  "name": "Bundles",
+  "description": "Bundles backported to 1.12.2.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["CleanroomMC"],
+  "credits": "Rongmario",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
