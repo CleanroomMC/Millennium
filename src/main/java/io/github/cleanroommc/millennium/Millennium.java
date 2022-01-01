@@ -1,7 +1,9 @@
 package io.github.cleanroommc.millennium;
 
-import io.github.cleanroommc.millennium.common.items.ItemBundle;
+import io.github.cleanroommc.millennium.common.items.BundleItem;
 import io.github.cleanroommc.millennium.client.sounds.BundleSoundEvents;
+import io.github.cleanroommc.millennium.common.items.MillenniumItem;
+import io.github.cleanroommc.millennium.common.items.MillenniumItems;
 import net.minecraft.item.Item;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -24,7 +26,7 @@ public class Millennium {
 
     @SubscribeEvent
     public void onItemRegister(RegistryEvent.Register<Item> event) {
-        ItemBundle.init(event.getRegistry());
+        MillenniumItems.init(event.getRegistry());
     }
 
     @SubscribeEvent

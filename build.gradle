@@ -53,6 +53,8 @@ dependencies {
         exclude module: "gson"
         exclude module: "commons-io"
     }
+
+    implementation ("com.google.googlejavaformat:google-java-format:1.13.0") // All IDEA users should install google java formatter as well
 }
 
 processResources {
