@@ -1,4 +1,4 @@
-package io.github.cleanroommc.millennium.bundle.sound;
+package io.github.cleanroommc.millennium.client.sounds;
 
 import io.github.cleanroommc.millennium.Millennium;
 import net.minecraft.util.ResourceLocation;

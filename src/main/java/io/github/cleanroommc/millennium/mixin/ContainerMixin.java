@@ -1,4 +1,4 @@
-package io.github.cleanroommc.millennium.bundle.mixin;
+package io.github.cleanroommc.millennium.mixin;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ClickType;

@@ -1,8 +1,8 @@
-package io.github.cleanroommc.millennium.bundle.item;
+package io.github.cleanroommc.millennium.common.items;
 
 import com.google.common.collect.Streams;
 import io.github.cleanroommc.millennium.Millennium;
-import io.github.cleanroommc.millennium.bundle.sound.BundleSoundEvents;
+import io.github.cleanroommc.millennium.client.sounds.BundleSoundEvents;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.IItemPropertyGetter;

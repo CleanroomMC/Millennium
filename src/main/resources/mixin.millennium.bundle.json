@@ -1,10 +1,10 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "io.github.cleanroommc.millennium.bundle.mixin",
+  "package": "io.github.cleanroommc.millennium.mixin",
   "compatibilityLevel": "JAVA_8",
   "refmap": "millennium.refmap.json",
   "mixins": [
-    "ContainerMixin"
+    "io.github.cleanroommc.millennium.mixin.ContainerMixin"
   ]
 }

@@ -1,7 +1,7 @@
 package io.github.cleanroommc.millennium;
 
-import io.github.cleanroommc.millennium.bundle.item.ItemBundle;
-import io.github.cleanroommc.millennium.bundle.sound.BundleSoundEvents;
+import io.github.cleanroommc.millennium.common.items.ItemBundle;
+import io.github.cleanroommc.millennium.client.sounds.BundleSoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.MinecraftForge;
