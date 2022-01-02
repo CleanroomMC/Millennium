@@ -1,16 +1,18 @@
 package io.github.cleanroommc.millennium.common.items;
 
+import io.github.cleanroommc.millennium.Millennium;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.item.Item;
 import net.minecraftforge.registries.IForgeRegistry;
 
 public final class MillenniumItems {
-  static final List<MillenniumItem> ITEMS = new ArrayList<>();
+  public static final List<Item> ITEMS = new ArrayList<>();
 
-  public static BundleItem ITEM_BUNDLE = addItem(new BundleItem());
+  public static BundleItem ITEM_BUNDLE = register("bundle", new BundleItem());
 
-  private static <T extends MillenniumItem> T addItem(T item) {
+  private static <T extends MillenniumItem> T register(String id, T item) {
+    item.setRegistryName(Millennium.MODID, id);
     ITEMS.add(item);
     return item;
   }
@@ -22,8 +24,9 @@ public final class MillenniumItems {
   }
 
   public static void registerModel() {
-    for (MillenniumItem item : ITEMS) {
-      item.registerModel();
+    for (Item item : ITEMS) {
+      if (item instanceof MillenniumItem)
+        ((MillenniumItem) item).registerModel();
     }
   }
 }

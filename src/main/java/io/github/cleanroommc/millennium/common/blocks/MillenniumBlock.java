@@ -16,6 +16,10 @@ public abstract class MillenniumBlock extends Block {
 
   public MillenniumBlock(Settings settings) {
     super(settings.material, settings.material.getMaterialMapColor());
+    this.settings = settings;
+
+    setResistance(settings.resistance);
+    setHardness(settings.hardness);
     setSoundType(settings.soundType);
   }
 
@@ -57,11 +61,11 @@ public abstract class MillenniumBlock extends Block {
     final ContextFunction<MapColor> mapColor;
     boolean collidable = true;
     boolean opaque = true;
+    float resistance;
+    float hardness;
     SoundType soundType = SoundType.STONE;
-    ContextFunction<Integer> lightValue =
-        (state, access, pos) -> 0;
-    ContextFunction<Float> slipperiness =
-        (state, access, pos) -> 0.6F;
+    ContextFunction<Integer> lightValue = (state, access, pos) -> 0;
+    ContextFunction<Float> slipperiness = (state, access, pos) -> 0.6F;
 
     public Settings(Material material) {
       this(material, material.getMaterialMapColor());
@@ -71,9 +75,7 @@ public abstract class MillenniumBlock extends Block {
       this(material, (state, access, pos) -> mapColor);
     }
 
-    public Settings(
-        Material material,
-        ContextFunction<MapColor> mapColor) {
+    public Settings(Material material, ContextFunction<MapColor> mapColor) {
       this.material = material;
       this.mapColor = mapColor;
     }
@@ -89,13 +91,22 @@ public abstract class MillenniumBlock extends Block {
       return this;
     }
 
+    public Settings resistance(float resistance) {
+      this.resistance = resistance;
+      return this;
+    }
+
+    public Settings hardness(float hardness) {
+      this.hardness = hardness;
+      return this;
+    }
+
     public Settings soundType(SoundType soundType) {
       this.soundType = soundType;
       return this;
     }
 
-    public Settings lightValue(
-        ContextFunction<Integer> lightValue) {
+    public Settings lightValue(ContextFunction<Integer> lightValue) {
       this.lightValue = lightValue;
       return this;
     }
@@ -110,8 +121,7 @@ public abstract class MillenniumBlock extends Block {
       return this;
     }
 
-    public Settings slipperiness(
-        ContextFunction<Float> slipperiness) {
+    public Settings slipperiness(ContextFunction<Float> slipperiness) {
       this.slipperiness = slipperiness;
       return this;
     }

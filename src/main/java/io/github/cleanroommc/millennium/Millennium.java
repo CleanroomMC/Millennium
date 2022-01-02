@@ -1,8 +1,10 @@
 package io.github.cleanroommc.millennium;
 
 import io.github.cleanroommc.millennium.client.sounds.BundleSoundEvents;
+import io.github.cleanroommc.millennium.common.blocks.MillenniumBlocks;
 import io.github.cleanroommc.millennium.common.items.MillenniumItems;
 import io.github.cleanroommc.millennium.proxy.CommonProxy;
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -46,6 +48,11 @@ public class Millennium {
   @Mod.EventHandler
   public void postInit(FMLPostInitializationEvent event) {
     proxy.postInit(event);
+  }
+
+  @SubscribeEvent
+  public void onBlockRegister(RegistryEvent.Register<Block> event) {
+    MillenniumBlocks.registerBlock(event.getRegistry());
   }
 
   @SubscribeEvent

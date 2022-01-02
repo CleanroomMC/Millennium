@@ -35,7 +35,6 @@ public class BundleItem extends MillenniumItem {
 
   BundleItem() {
     super(new Settings().maxDamage(1).creativeTab(CreativeTabs.TOOLS));
-    setRegistryName(Millennium.MODID, "bundle");
   }
 
   private static int getWeight(ItemStack stack) {
