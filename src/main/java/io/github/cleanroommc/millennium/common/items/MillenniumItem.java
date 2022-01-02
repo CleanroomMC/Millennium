@@ -1,5 +1,6 @@
 package io.github.cleanroommc.millennium.common.items;
 
+import io.github.cleanroommc.millennium.Millennium;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
@@ -20,6 +21,10 @@ public abstract class MillenniumItem extends Item {
   @Override
   public IRarity getForgeRarity(ItemStack stack) {
     return rarity;
+  }
+
+  void registerModel() {
+    Millennium.proxy.registerItemRenderer(this, 0, "inventory");
   }
 
   public static class Settings {
