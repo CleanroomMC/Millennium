@@ -11,6 +11,9 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLConstructionEvent;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @Mod(modid = Millennium.MODID, name = Millennium.NAME, version = Millennium.VERSION)
@@ -28,6 +31,21 @@ public class Millennium {
   @Mod.EventHandler
   public void construct(FMLConstructionEvent event) {
     MinecraftForge.EVENT_BUS.register(this);
+  }
+
+  @Mod.EventHandler
+  public void preInit(FMLPreInitializationEvent event) {
+    proxy.preInit(event);
+  }
+
+  @Mod.EventHandler
+  public void init(FMLInitializationEvent event) {
+    proxy.init(event);
+  }
+
+  @Mod.EventHandler
+  public void postInit(FMLPostInitializationEvent event) {
+    proxy.postInit(event);
   }
 
   @SubscribeEvent
