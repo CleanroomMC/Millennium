@@ -48,19 +48,19 @@ public abstract class MillenniumBlock extends Block {
   }
 
   @FunctionalInterface
-  public interface ContextFunction<T1, T2, T3, R> {
-    R apply(T1 t1, T2 t2, T3 t3);
+  public interface ContextFunction<R> {
+    R apply(IBlockState t1, IBlockAccess t2, BlockPos t3);
   }
 
   public static class Settings {
     final Material material;
-    final ContextFunction<IBlockState, IBlockAccess, BlockPos, MapColor> mapColor;
+    final ContextFunction<MapColor> mapColor;
     boolean collidable = true;
     boolean opaque = true;
     SoundType soundType = SoundType.STONE;
-    ContextFunction<IBlockState, IBlockAccess, BlockPos, Integer> lightValue =
+    ContextFunction<Integer> lightValue =
         (state, access, pos) -> 0;
-    ContextFunction<IBlockState, IBlockAccess, BlockPos, Float> slipperiness =
+    ContextFunction<Float> slipperiness =
         (state, access, pos) -> 0.6F;
 
     public Settings(Material material) {
@@ -73,7 +73,7 @@ public abstract class MillenniumBlock extends Block {
 
     public Settings(
         Material material,
-        ContextFunction<IBlockState, IBlockAccess, BlockPos, MapColor> mapColor) {
+        ContextFunction<MapColor> mapColor) {
       this.material = material;
       this.mapColor = mapColor;
     }
@@ -95,7 +95,7 @@ public abstract class MillenniumBlock extends Block {
     }
 
     public Settings lightValue(
-        ContextFunction<IBlockState, IBlockAccess, BlockPos, Integer> lightValue) {
+        ContextFunction<Integer> lightValue) {
       this.lightValue = lightValue;
       return this;
     }
@@ -111,7 +111,7 @@ public abstract class MillenniumBlock extends Block {
     }
 
     public Settings slipperiness(
-        ContextFunction<IBlockState, IBlockAccess, BlockPos, Float> slipperiness) {
+        ContextFunction<Float> slipperiness) {
       this.slipperiness = slipperiness;
       return this;
     }
