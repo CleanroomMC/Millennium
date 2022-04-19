@@ -1,0 +1,7 @@
+{
+    "parent": "millennium:item/bundle",
+    "textures": 
+	{
+        "layer0": "millennium:item/bundle_filled"
+    }
+}

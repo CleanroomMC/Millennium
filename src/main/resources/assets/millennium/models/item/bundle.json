@@ -1,0 +1,17 @@
+{
+    "parent": "item/generated",
+    "textures": 
+	{
+        "layer0": "millennium:item/bundle"
+    },
+    "overrides": 
+	[
+        { 
+			"predicate": 
+			{ 
+				"filled": 0.0000001 
+			}, 
+			"model": "millennium:item/bundle_filled"
+		}
+    ]
+}

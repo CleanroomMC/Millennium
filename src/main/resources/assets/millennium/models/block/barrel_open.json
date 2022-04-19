@@ -1,0 +1,8 @@
+{
+  "parent": "millennium:block/cube_bottom_top",
+  "textures": {
+    "top": "millennium:block/barrel_top_open",
+    "bottom": "millennium:block/barrel_bottom",
+    "side": "millennium:block/barrel_side"
+  }
+}

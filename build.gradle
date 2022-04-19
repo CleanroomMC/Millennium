@@ -14,7 +14,7 @@ buildscript {
 		}
     }
 }
-
+apply plugin: 'checkstyle' // now we need to define our codestyle ourself
 apply plugin: 'net.minecraftforge.gradle.forge'
 
 if (project.use_mixins) {
@@ -63,14 +63,12 @@ repositories {
 }
 
 dependencies {
-
 	if (project.use_assetmover) {
 		deobfCompile 'com.cleanroommc:assetmover:0.2'
 	}
 	if (project.use_mixins) {
 		deobfCompile 'zone.rong:mixinbooter:4.2'
     }
-	
 }
 
 sourceSets {

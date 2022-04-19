@@ -1,0 +1,94 @@
+{
+  "item.bundle.drop_contents": {
+    "sounds": [
+      {
+        "name": "millennium:item/bundle/drop_contents1",
+        "pitch": 0.95
+      },
+      {
+        "name": "millennium:item/bundle/drop_contents2",
+        "pitch": 0.95
+      },
+      {
+        "name": "millennium:item/bundle/drop_contents3",
+        "pitch": 0.95
+      }
+    ]
+  },
+  "item.bundle.insert": {
+    "sounds": [
+      {
+        "name": "millennium:item/bundle/insert1",
+        "pitch": 0.95
+      },
+      {
+        "name": "millennium:item/bundle/insert1",
+        "pitch": 1.05
+      },
+      {
+        "name": "millennium:item/bundle/insert2",
+        "pitch": 0.95
+      },
+      {
+        "name": "millennium:item/bundle/insert2",
+        "pitch": 1.05
+      },
+      {
+        "name": "millennium:item/bundle/insert3",
+        "pitch": 0.95
+      },
+      {
+        "name": "millennium:item/bundle/insert3",
+        "pitch": 1.05
+      }
+    ]
+  },
+  "item.bundle.remove_one": {
+    "sounds": [
+      {
+        "name": "millennium:item/bundle/remove_one1",
+        "pitch": 1.05
+      },
+      {
+        "name": "millennium:item/bundle/remove_one1",
+        "pitch": 1.1
+      },
+      {
+        "name": "millennium:item/bundle/remove_one2",
+        "pitch": 1.05
+      },
+      {
+        "name": "millennium:item/bundle/remove_one2",
+        "pitch": 1.1
+      },
+      {
+        "name": "millennium:item/bundle/remove_one3",
+        "pitch": 1.05
+      },
+      {
+        "name": "millennium:item/bundle/remove_one3",
+        "pitch": 1.1
+      }
+    ]
+  },
+  "block.barrel.open": {
+    "sounds": [
+      {
+        "name": "millennium:block/barrel/open1",
+        "pitch": 1.0
+      },
+      {
+        "name": "millennium:block/barrel/open2",
+        "pitch": 1.0
+      }
+    ]
+  },
+  "block.barrel.close": {
+    "sounds": [
+      {
+        "name": "millennium:block/barrel/close",
+        "pitch": 1.0
+      }
+    ]
+  }
+}

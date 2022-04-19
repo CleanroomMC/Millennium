@@ -1,14 +1,14 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
+  "modid": "millennium",
+  "name": "Millennium",
+  "description": "Bringing vanilla features from 1.12+ => 1.12.",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
   "authorList": ["CleanroomMC"],
-  "credits": "Authors of this project",
+  "credits": "Rongmario, ChAoS_UnItY",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []

@@ -1,0 +1,56 @@
+{
+  "variants": {
+    "facing=down,open=false": {
+      "x": 180,
+      "model": "millennium:barrel"
+    },
+    "facing=down,open=true": {
+      "x": 180,
+      "model": "millennium:barrel_open"
+    },
+    "facing=east,open=false": {
+      "x": 90,
+      "y": 90,
+      "model": "millennium:barrel"
+    },
+    "facing=east,open=true": {
+      "x": 90,
+      "y": 90,
+      "model": "millennium:barrel_open"
+    },
+    "facing=north,open=false": {
+      "x": 90,
+      "model": "millennium:barrel"
+    },
+    "facing=north,open=true": {
+      "x": 90,
+      "model": "millennium:barrel_open"
+    },
+    "facing=south,open=false": {
+      "x": 90,
+      "y": 180,
+      "model": "millennium:barrel"
+    },
+    "facing=south,open=true": {
+      "x": 90,
+      "y": 180,
+      "model": "millennium:barrel_open"
+    },
+    "facing=up,open=false": {
+      "model": "millennium:barrel"
+    },
+    "facing=up,open=true": {
+      "model": "millennium:barrel_open"
+    },
+    "facing=west,open=false": {
+      "x": 90,
+      "y": 270,
+      "model": "millennium:barrel"
+    },
+    "facing=west,open=true": {
+      "x": 90,
+      "y": 270,
+      "model": "millennium:barrel_open"
+    }
+  }
+}
