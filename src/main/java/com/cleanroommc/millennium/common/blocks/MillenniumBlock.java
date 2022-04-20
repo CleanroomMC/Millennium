@@ -3,6 +3,7 @@ package com.cleanroommc.millennium.common.blocks;
 import com.cleanroommc.millennium.Millennium;
 import com.cleanroommc.millennium.common.util.VoxelShape;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -18,6 +19,9 @@ import net.minecraft.world.IBlockAccess;
 import javax.annotation.Nullable;
 import java.util.function.Function;
 
+/**
+ * Adapted version of {@link Block} for Millennium
+ */
 public class MillenniumBlock extends Block {
   final Settings settings;
 

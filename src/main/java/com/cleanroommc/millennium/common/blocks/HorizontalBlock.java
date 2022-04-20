@@ -12,6 +12,9 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+/**
+ * Adapted version of {@link BlockHorizontal} for Millennium
+ */
 public abstract class HorizontalBlock extends MillenniumBlock {
   public static final PropertyDirection FACING = BlockHorizontal.FACING;
 
