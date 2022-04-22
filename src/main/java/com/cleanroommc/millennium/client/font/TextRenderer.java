@@ -10,6 +10,10 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * This class will remove soon when Blackbox's implementation is done
+ */
+@Deprecated
 public class TextRenderer extends FontRenderer {
   private boolean drawOutline;
 
