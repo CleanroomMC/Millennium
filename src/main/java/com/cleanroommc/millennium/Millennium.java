@@ -4,6 +4,9 @@ import com.cleanroommc.millennium.client.sounds.BarrelSoundEvents;
 import com.cleanroommc.millennium.client.sounds.BundleSoundEvents;
 import com.cleanroommc.millennium.common.blocks.MillenniumBlocks;
 import com.cleanroommc.millennium.common.items.MillenniumItems;
+import com.cleanroommc.millennium.network.POIBulkUpdateMessage;
+import com.cleanroommc.millennium.network.POIUpdateMessage;
+import com.cleanroommc.millennium.poi.PointOfInterest;
 import com.cleanroommc.millennium.proxy.CommonProxy;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -18,12 +21,18 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.registries.RegistryBuilder;
 
 @Mod(modid = Millennium.MODID, name = Millennium.NAME, version = Millennium.VERSION)
 public class Millennium {
   public static final String MODID = "millennium";
   public static final String NAME = "Millennium";
   public static final String VERSION = "@VERSION@";
+
+  public static final SimpleNetworkWrapper CHANNEL = NetworkRegistry.INSTANCE.newSimpleChannel("millennium");
 
   @Mod.Instance public static Millennium INSTANCE;
 
@@ -45,6 +54,8 @@ public class Millennium {
   @Mod.EventHandler
   public void init(FMLInitializationEvent event) {
     proxy.init(event);
+    CHANNEL.registerMessage(POIUpdateMessage.Handler.INSTANCE, POIUpdateMessage.class, 0, Side.CLIENT);
+    CHANNEL.registerMessage(POIBulkUpdateMessage.Handler.INSTANCE, POIBulkUpdateMessage.class, 1, Side.CLIENT);
   }
 
   @Mod.EventHandler
