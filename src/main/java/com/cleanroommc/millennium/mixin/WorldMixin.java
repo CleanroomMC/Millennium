@@ -25,14 +25,19 @@ public abstract class WorldMixin {
 
     @Shadow @Final public WorldProvider provider;
 
+    @Shadow public abstract Chunk getChunk(BlockPos pos);
+
     @Inject(method = "markAndNotifyBlock", at = @At("TAIL"), remap = false)
     private void setPOIInfo(BlockPos pos, Chunk chunk, IBlockState state, IBlockState newState, int flags, CallbackInfo ci) {
+        /* 'chunk' can be null sometimes */
+        chunk = this.getChunk(pos);
         IPOICapability cap = IPOICapability.get(chunk);
         if(cap != null) {
             PointOfInterest poi = PointOfInterest.forState(newState);
             PointOfInterest oldPoi = cap.getPOIs().get(pos.toLong());
             if(oldPoi != poi) {
                 cap.setPOI(pos.toLong(), poi);
+                System.out.println(pos + " = " + poi);
                 chunk.markDirty();
                 if ((flags & Constants.BlockFlags.SEND_TO_CLIENTS) != 0 && !this.isRemote) {
                     /* Send update to clients */
