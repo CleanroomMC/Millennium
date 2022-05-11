@@ -1,7 +1,7 @@
 package com.cleanroommc.millennium.network;
 
 import com.cleanroommc.millennium.poi.IPOICapability;
-import com.cleanroommc.millennium.poi.PointOfInterest;
+import com.cleanroommc.millennium.poi.PointOfInterestType;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.BlockPos;
@@ -9,8 +9,6 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.registries.ForgeRegistry;
 
 public class POIUpdateMessage implements IMessage {
     public long pos;
@@ -20,7 +18,7 @@ public class POIUpdateMessage implements IMessage {
 
     }
 
-    public POIUpdateMessage(long pos, PointOfInterest poi) {
+    public POIUpdateMessage(long pos, PointOfInterestType poi) {
         this.pos = pos;
         this.poiId = poi != null ? poi.serialize() : -1;
     }
@@ -47,8 +45,8 @@ public class POIUpdateMessage implements IMessage {
                 Chunk chunk = Minecraft.getMinecraft().world.getChunk(pos);
                 IPOICapability cap = IPOICapability.get(chunk);
                 if(cap != null) {
-                    PointOfInterest poi = PointOfInterest.deserialize(message.poiId);
-                    cap.setPOI(message.pos, poi);
+                    PointOfInterestType poi = PointOfInterestType.deserialize(message.poiId);
+                    cap.setPOI(message.pos, poi, true);
                     chunk.markDirty();
                 }
             });

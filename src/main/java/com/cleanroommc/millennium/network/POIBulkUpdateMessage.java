@@ -2,17 +2,15 @@ package com.cleanroommc.millennium.network;
 
 import com.cleanroommc.millennium.poi.IPOICapability;
 import com.cleanroommc.millennium.poi.PointOfInterest;
+import com.cleanroommc.millennium.poi.PointOfInterestType;
 import io.netty.buffer.ByteBuf;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.registries.ForgeRegistry;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
@@ -29,7 +27,7 @@ public class POIBulkUpdateMessage implements IMessage {
     }
 
     public POIBulkUpdateMessage(@Nonnull ChunkPos chunkPos, @Nonnull Long2ObjectMap<PointOfInterest> map) {
-        map.forEach((pos, poi) -> data.add(Pair.of(pos, poi != null ? poi.serialize() : -1)));
+        map.forEach((pos, poi) -> data.add(Pair.of(pos, poi != null ? poi.getType().serialize() : -1)));
         chunkX = chunkPos.x;
         chunkZ = chunkPos.z;
     }
@@ -66,11 +64,11 @@ public class POIBulkUpdateMessage implements IMessage {
                 Chunk chunk = Minecraft.getMinecraft().world.getChunk(message.chunkX, message.chunkZ);
                 IPOICapability cap = IPOICapability.get(chunk);
                 if(cap != null) {
-                    cap.getPOIs().clear();
+                    cap.clearPOIs();
                     message.data.forEach(pair -> {
                        long pos = pair.getLeft();
-                       PointOfInterest poi = PointOfInterest.deserialize(pair.getRight());
-                       cap.setPOI(pos, poi);
+                       PointOfInterestType poi = PointOfInterestType.deserialize(pair.getRight());
+                       cap.setPOI(pos, poi, false);
                     });
                     chunk.markDirty();
                 }

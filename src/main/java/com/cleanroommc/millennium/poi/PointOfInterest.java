@@ -1,125 +1,93 @@
 package com.cleanroommc.millennium.poi;
 
-import com.cleanroommc.millennium.Millennium;
-import com.cleanroommc.millennium.network.POIBulkUpdateMessage;
-import com.google.common.base.Joiner;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Maps;
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.chunk.Chunk;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.event.world.ChunkWatchEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.registries.*;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.function.Predicate;
 
 /**
- * Represents a block which needs to be found quickly within a world.
+ * Represents a POI at a given location in the world.
  */
-@Mod.EventBusSubscriber
-public class PointOfInterest extends IForgeRegistryEntry.Impl<PointOfInterest> {
-    private static IForgeRegistry<PointOfInterest> REGISTRY = null;
-    private static final ResourceLocation POI_CAP = new ResourceLocation(Millennium.MODID, "poi");
-    private static final ResourceLocation STATE_TO_POI = new ResourceLocation(Millennium.MODID, "state_to_poi");
+public class PointOfInterest {
+    private World world;
+    private PointOfInterestType poiType;
+    private BlockPos pos;
+    private int reservations;
 
-    @GameRegistry.ObjectHolder(Millennium.MODID + ":nether_portal")
-    public static final PointOfInterest NETHER_PORTAL = null;
+    public static final Predicate<PointOfInterest> ANY = poi -> true;
 
-    public static Set<IBlockState> allStatesOfBlock(Block block) {
-        return ImmutableSet.copyOf(block.getBlockState().getValidStates());
+    public PointOfInterest(World world) {
+        this.world = world;
+        this.poiType = null;
+        this.pos = null;
     }
 
-    private final Set<IBlockState> validStates;
-
-    public PointOfInterest(Set<IBlockState> states) {
-        validStates = states;
+    public PointOfInterest(PointOfInterestType type, World world, BlockPos pos) {
+        this(type, world, pos, 0);
+    }
+    public PointOfInterest(PointOfInterestType type, World world, BlockPos pos, int reservations) {
+        this.poiType = type;
+        this.world = world;
+        this.pos = pos;
+        this.reservations = reservations;
     }
 
-    public Set<IBlockState> getStates() {
-        return validStates;
+    public PointOfInterestType getType() {
+        return poiType;
     }
 
-    @Override
-    public String toString() {
-        return getRegistryName().toString() + "[" + Joiner.on(",").join(validStates) + "]";
+    public BlockPos getPos() {
+        return pos;
     }
 
-    public static PointOfInterest forState(IBlockState state) {
-        @SuppressWarnings("unchecked")
-        HashMap<IBlockState, PointOfInterest> poiMap = REGISTRY.getSlaveMap(STATE_TO_POI, HashMap.class);
-        return poiMap.get(state);
+    /**
+     * Get the number of reservations currently held on this POI.
+     */
+    public int getReservations() {
+        return reservations;
     }
 
-    public int serialize() {
-        return ((ForgeRegistry<PointOfInterest>)REGISTRY).getID(this);
-    }
-
-    public static PointOfInterest deserialize(int id) {
-        if(id == -1)
-            return null;
-        return ((ForgeRegistry<PointOfInterest>)REGISTRY).getValue(id);
-    }
-
-    private static class POICallbacks implements IForgeRegistry.CreateCallback<PointOfInterest>, IForgeRegistry.AddCallback<PointOfInterest>, IForgeRegistry.ClearCallback<PointOfInterest> {
-        @Override
-        public void onAdd(IForgeRegistryInternal<PointOfInterest> owner, RegistryManager stage, int id, PointOfInterest poi, @Nullable PointOfInterest oldPoi) {
-            @SuppressWarnings("unchecked")
-            HashMap<IBlockState, PointOfInterest> poiMap = owner.getSlaveMap(STATE_TO_POI, HashMap.class);
-            if(oldPoi != null) {
-                for(IBlockState state : oldPoi.getStates()) {
-                    poiMap.remove(state);
-                }
-            }
-            for(IBlockState state : poi.getStates()) {
-                poiMap.put(state, poi);
-            }
+    /**
+     * Try to reserve this POI.
+     */
+    public boolean tryReserve() {
+        if(this.reservations >= getType().getMaxReservations()) {
+            return false;
         }
+        this.reservations++;
+        return true;
+    }
 
-        @Override
-        public void onCreate(IForgeRegistryInternal<PointOfInterest> owner, RegistryManager stage) {
-            owner.setSlaveMap(STATE_TO_POI, new HashMap<IBlockState, PointOfInterest>());
+    /**
+     * Try to release this POI.
+     */
+    public boolean tryRelease() {
+        if(this.reservations <= 0) {
+            return false;
         }
-
-        @Override
-        public void onClear(IForgeRegistryInternal<PointOfInterest> owner, RegistryManager stage) {
-            owner.getSlaveMap(STATE_TO_POI, HashMap.class).clear();
-        }
+        this.reservations--;
+        return true;
     }
 
-
-    @SubscribeEvent
-    public static void setupRegistry(RegistryEvent.NewRegistry event) {
-        REGISTRY = new RegistryBuilder<PointOfInterest>()
-                .setType(PointOfInterest.class)
-                .setName(POI_CAP)
-                .addCallback(new POICallbacks())
-                .create();
+    public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
+        nbt.setLong("pos", pos.toLong());
+        nbt.setString("id", String.valueOf(getType().getRegistryName()));
+        nbt.setInteger("reserved", reservations);
+        return nbt;
     }
 
-    @SubscribeEvent
-    public static void registerDefaults(RegistryEvent.Register<PointOfInterest> event) {
-        REGISTRY.register(new PointOfInterest(PointOfInterest.allStatesOfBlock(Blocks.PORTAL)).setRegistryName("nether_portal"));
-    }
-
-    @SubscribeEvent
-    public static void attachCap(AttachCapabilitiesEvent<Chunk> event) {
-        event.addCapability(POI_CAP, new IPOICapability.Provider());
-    }
-
-    @SubscribeEvent
-    public static void sendToPlayer(@Nonnull ChunkWatchEvent.Watch event) {
-        final @Nullable IPOICapability cap = IPOICapability.get(event.getChunkInstance());
-        if(cap != null) Millennium.CHANNEL.sendTo(new POIBulkUpdateMessage(event.getChunk(), cap.getPOIs()), event.getPlayer());
+    public void readFromNBT(World world, NBTTagCompound nbt) {
+        pos = BlockPos.fromLong(nbt.getLong("pos"));
+        ResourceLocation poiLoc = new ResourceLocation(nbt.getString("id"));
+        PointOfInterestType poiType = GameRegistry.findRegistry(PointOfInterestType.class).getValue(poiLoc);
+        if(poiType != null)
+            this.poiType = poiType;
+        else
+            throw new IllegalArgumentException("Unexpected POI type: " + poiLoc);
+        this.world = world;
+        this.reservations = nbt.getInteger("reserved");
     }
 }

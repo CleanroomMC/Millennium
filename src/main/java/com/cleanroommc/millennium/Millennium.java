@@ -6,7 +6,6 @@ import com.cleanroommc.millennium.common.blocks.MillenniumBlocks;
 import com.cleanroommc.millennium.common.items.MillenniumItems;
 import com.cleanroommc.millennium.network.POIBulkUpdateMessage;
 import com.cleanroommc.millennium.network.POIUpdateMessage;
-import com.cleanroommc.millennium.poi.PointOfInterest;
 import com.cleanroommc.millennium.proxy.CommonProxy;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -24,7 +23,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.registries.RegistryBuilder;
 
 @Mod(modid = Millennium.MODID, name = Millennium.NAME, version = Millennium.VERSION)
 public class Millennium {
