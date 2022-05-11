@@ -1,9 +1,10 @@
 package com.cleanroommc.millennium.client.model;
 
+import com.cleanroommc.millennium.common.entity.EntityNewVillager;
+import com.cleanroommc.millennium.common.village.VillagerProfession;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.model.ModelVillager;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.passive.EntityVillager;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
@@ -71,20 +72,11 @@ public class ModelVillagerModern extends ModelVillager
     {
         super.render(entity, f, f1, f2, f3, f4, f5);
 
-        int prof = ((EntityVillager)entity).getProfession();
-        String profForge = ((EntityVillager)entity).getProfessionForge().getRegistryName().toString();
-
-        if (
-                prof > 5 // This is a non-vanilla villager profession
-                        && !((EntityVillager) entity).isChild() // and is not a child
-        )
-        {
-            return;
-        }
+        VillagerProfession prof = ((EntityNewVillager)entity).getProfession();
 
         // You reach this point if the villager needs its head examined lol gottem
 
-        if (((EntityVillager) entity).isChild())
+        if (((EntityNewVillager) entity).isChild())
         {
             //Re-upscale baby head lmao
             GL11.glPushMatrix();

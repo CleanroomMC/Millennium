@@ -22,6 +22,7 @@ import net.minecraftforge.registries.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -37,8 +38,11 @@ public class PointOfInterestType extends IForgeRegistryEntry.Impl<PointOfInteres
     @GameRegistry.ObjectHolder(Millennium.MODID + ":nether_portal")
     public static final PointOfInterestType NETHER_PORTAL = null;
 
-    public static Set<IBlockState> allStatesOfBlock(Block block) {
-        return ImmutableSet.copyOf(block.getBlockState().getValidStates());
+    @GameRegistry.ObjectHolder(Millennium.MODID + ":blast_furnace")
+    public static final PointOfInterestType BLAST_FURNACE = null;
+
+    public static Set<IBlockState> allStatesOfBlock(Block... blocks) {
+        return Arrays.stream(blocks).flatMap(block -> block.getBlockState().getValidStates().stream()).collect(ImmutableSet.toImmutableSet());
     }
 
     private final Set<IBlockState> validStates;
@@ -125,6 +129,7 @@ public class PointOfInterestType extends IForgeRegistryEntry.Impl<PointOfInteres
     @SubscribeEvent
     public static void registerDefaults(RegistryEvent.Register<PointOfInterestType> event) {
         REGISTRY.register(new PointOfInterestType(PointOfInterestType.allStatesOfBlock(Blocks.PORTAL), 0).setRegistryName("nether_portal"));
+        REGISTRY.register(new PointOfInterestType(PointOfInterestType.allStatesOfBlock(Blocks.FURNACE, Blocks.LIT_FURNACE), 0).setRegistryName("blast_furnace"));
     }
 
     @SubscribeEvent
