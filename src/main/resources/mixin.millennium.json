@@ -5,9 +5,15 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "millennium.refmap.json",
   "mixins": [
+    "BlockMixin",
     "BlockPortalMixin",
+    "BlockStateBaseMixin",
     "ContainerMixin",
     "EntityLivingBaseMixin",
+    "ForgeRegistryEntryImplMixin",
+    "ItemMixin",
+    "ItemStackMixin",
+    "OreDictionaryMixin",
     "SignBlockMixin",
     "TeleporterMixin",
     "WorldMixin"
