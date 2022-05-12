@@ -1,5 +1,6 @@
 package com.cleanroommc.millennium.poi;
 
+import com.cleanroommc.millennium.Millennium;
 import com.cleanroommc.millennium.poi.event.POIEvent;
 import com.google.common.collect.HashMultimap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
@@ -46,6 +47,9 @@ public interface IPOICapability {
 
     void clearPOIs();
 
+    boolean needsRescan();
+    void setNeedsRescan(boolean flag);
+
     @SuppressWarnings("ConstantConditions")
     @Nullable
     static IPOICapability get(@Nullable Chunk p) {
@@ -58,6 +62,7 @@ public interface IPOICapability {
     class Impl implements IPOICapability
     {
         private final Chunk chunk;
+        private boolean needsRescan = true;
 
         public Impl() {
             throw new IllegalStateException("Do not use this constructor");
@@ -94,6 +99,16 @@ public interface IPOICapability {
                 if(fireEvents)
                     MinecraftForge.EVENT_BUS.post(new POIEvent.AddedEvent(poi));
             }
+        }
+
+        @Override
+        public void setNeedsRescan(boolean needsRescan) {
+            this.needsRescan = needsRescan;
+        }
+
+        @Override
+        public boolean needsRescan() {
+            return this.needsRescan;
         }
 
         protected void setPOIObject(long pos, PointOfInterestType poiType, PointOfInterest poi) {
@@ -166,6 +181,7 @@ public interface IPOICapability {
         @Nonnull
         @Override
         public NBTBase writeNBT(@Nullable Capability<IPOICapability> capability, @Nonnull IPOICapability instance, @Nullable EnumFacing side) {
+            final NBTTagCompound storage = new NBTTagCompound();
             final NBTTagList list = new NBTTagList();
 
             for(Map.Entry<Long, PointOfInterest> entry : instance.getPOIs().entrySet()) {
@@ -174,19 +190,28 @@ public interface IPOICapability {
                 list.appendTag(nbt);
             }
 
-            return list;
+            IForgeRegistry<PointOfInterestType> typeRegistry = GameRegistry.findRegistry(PointOfInterestType.class);
+            storage.setInteger("Hash", typeRegistry.getKeys().hashCode());
+            storage.setTag("Entries", list);
+
+            return storage;
         }
 
         @Override
         public void readNBT(@Nullable Capability<IPOICapability> capability, @Nonnull IPOICapability instance, @Nullable EnumFacing side, @Nullable NBTBase nbtIn) {
-            if(nbtIn instanceof NBTTagList) {
+            boolean shouldRescan = true;
+            if(nbtIn instanceof NBTTagCompound) {
                 instance.clearPOIs();
+                shouldRescan = false;
                 IForgeRegistry<PointOfInterestType> typeRegistry = GameRegistry.findRegistry(PointOfInterestType.class);
-                for(NBTBase tag : (NBTTagList)nbtIn) {
+                NBTTagCompound storage = (NBTTagCompound)nbtIn;
+                NBTTagList entries = storage.getTagList("Entries", Constants.NBT.TAG_COMPOUND);
+                for(NBTBase tag : entries) {
                     if(tag instanceof NBTTagCompound) {
                         NBTTagCompound nbt = (NBTTagCompound)tag;
                         if(nbt.hasKey("id", Constants.NBT.TAG_STRING)) {
-                            PointOfInterestType type = typeRegistry.getValue(new ResourceLocation(nbt.getString("id")));
+                            ResourceLocation id = new ResourceLocation(nbt.getString("id"));
+                            PointOfInterestType type = typeRegistry.getValue(id);
                             if(type != null) {
                                 PointOfInterest poi = type.createPOIEmpty();
                                 poi.readFromNBT(instance.getChunk().getWorld(), nbt);
@@ -195,7 +220,13 @@ public interface IPOICapability {
                         }
                     }
                 }
+                if(!storage.hasKey("Hash", Constants.NBT.TAG_INT) || storage.getInteger("Hash") != typeRegistry.getKeys().hashCode())
+                    shouldRescan = true;
             }
+            if(shouldRescan) {
+                PointOfInterestHelper.rescanPOIs(instance.getChunk());
+            }
+            instance.setNeedsRescan(false);
         }
     }
 }

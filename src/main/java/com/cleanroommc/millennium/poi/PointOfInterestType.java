@@ -14,6 +14,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.event.world.ChunkWatchEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -136,5 +137,16 @@ public class PointOfInterestType extends IForgeRegistryEntry.Impl<PointOfInteres
     public static void sendToPlayer(@Nonnull ChunkWatchEvent.Watch event) {
         final @Nullable IPOICapability cap = IPOICapability.get(event.getChunkInstance());
         if(cap != null) Millennium.CHANNEL.sendTo(new POIBulkUpdateMessage(event.getChunk(), cap.getPOIs()), event.getPlayer());
+    }
+
+    @SubscribeEvent
+    public static void rescanIfNeeded(@Nonnull ChunkEvent.Load event) {
+        final @Nullable IPOICapability cap = IPOICapability.get(event.getChunk());
+        if(cap != null) {
+            if(cap.needsRescan()) {
+                PointOfInterestHelper.rescanPOIs(event.getChunk());
+                cap.setNeedsRescan(false);
+            }
+        }
     }
 }

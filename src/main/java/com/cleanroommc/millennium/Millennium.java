@@ -23,9 +23,12 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Mod(modid = Millennium.MODID, name = Millennium.NAME, version = Millennium.VERSION)
 public class Millennium {
+  public static final Logger LOGGER = LogManager.getLogger();
   public static final String MODID = "millennium";
   public static final String NAME = "Millennium";
   public static final String VERSION = "@VERSION@";
