@@ -1,6 +1,7 @@
 package com.cleanroommc.millennium.common.blocks;
 
 import com.cleanroommc.millennium.common.util.VoxelShape;
+import git.jbredwards.fluidlogged_api.api.block.IFluidloggable;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -10,11 +11,13 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ScaffoldingBlock extends MillenniumBlock {
+@Optional.Interface(iface = "git.jbredwards.fluidlogged_api.api.block.IFluidloggable", modid = "fluidlogged_api")
+public class ScaffoldingBlock extends MillenniumBlock implements IFluidloggable {
   // NORMAL SHAPES
   public static final VoxelShape NORMAL_SHAPE$1 = createShape(0.0D, 14.0D, 0.0D, 16.0D, 16.0D, 16.0D);
   public static final VoxelShape NORMAL_SHAPE$2 = createShape(0.0D, 0.0D, 0.0D, 2.0D, 16.0D, 2.0D);

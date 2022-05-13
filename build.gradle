@@ -54,12 +54,9 @@ minecraft {
 }
 
 repositories {
-	maven { 
-		url = 'https://maven.cleanroommc.com' 
-	}
-    maven {
-        url = 'https://repo.spongepowered.org/maven'
-    }
+	maven { url 'https://maven.cleanroommc.com' } //assetmover
+	maven { url 'https://repo.spongepowered.org/maven' } //mixins
+	maven { url 'https://jitpack.io' } //fluidlogged api
 }
 
 dependencies {
@@ -68,7 +65,8 @@ dependencies {
 	}
 	if (project.use_mixins) {
 		deobfCompile 'zone.rong:mixinbooter:4.2'
-    }
+    	}
+	deobfCompile 'com.github.jbredwards:fluidlogged-api:df10310dee'
 }
 
 sourceSets {
