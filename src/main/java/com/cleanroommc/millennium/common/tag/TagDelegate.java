@@ -21,7 +21,7 @@ public class TagDelegate<T> implements ITaggable<T> {
      */
     @SuppressWarnings("unchecked")
     public static <T> TagDelegate<T> getDelegate(ITaggable<T> taggable) {
-        return (TagDelegate<T>) DELEGATES.computeIfAbsent(taggable, t -> new com.cleanroommc.millennium.common.tag.TagDelegate<>(t.getTagDelegateType()));
+        return (TagDelegate<T>) DELEGATES.computeIfAbsent(taggable, t -> new TagDelegate<>(t.getTagDelegateType()));
     }
 
     /**
