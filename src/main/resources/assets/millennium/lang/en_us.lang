@@ -4,3 +4,7 @@ item.glow_ink_sac.name=Glow Ink Sac
 tile.barrel.name=Barrel
 
 container.barrel=Barrel
+
+command.failed=An unexpected error occurred trying to execute that command
+command.context.here=<--[HERE]
+commands.help.failed=Unknown command or insufficient permissions

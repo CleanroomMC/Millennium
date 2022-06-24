@@ -60,6 +60,10 @@ repositories {
     maven {
         url = 'https://repo.spongepowered.org/maven'
     }
+	maven {
+		name 'Minecraft Libraries'
+		url "https://libraries.minecraft.net"
+	}
 }
 
 dependencies {
@@ -69,6 +73,7 @@ dependencies {
 	if (project.use_mixins) {
 		deobfCompile 'zone.rong:mixinbooter:4.2'
     }
+	compile 'com.mojang:brigadier:1.0.17'
 }
 
 sourceSets {

@@ -8,6 +8,7 @@
     "BlockMixin",
     "BlockPortalMixin",
     "BlockStateBaseMixin",
+    "CommandHandlerMixin",
     "ContainerMixin",
     "EntityLivingBaseMixin",
     "ForgeRegistryEntryImplMixin",
