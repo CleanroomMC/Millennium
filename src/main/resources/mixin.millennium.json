@@ -1,25 +1,12 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.cleanroommc.millennium.mixin",
+  "package": "com.cleanroommc.millennium.core.mixins",
   "compatibilityLevel": "JAVA_8",
   "refmap": "millennium.refmap.json",
   "mixins": [
-    "BlockMixin",
-    "BlockPortalMixin",
-    "BlockStateBaseMixin",
-    "ContainerMixin",
-    "EntityLivingBaseMixin",
-    "ForgeRegistryEntryImplMixin",
-    "ItemMixin",
-    "ItemStackMixin",
-    "OreDictionaryMixin",
-    "SignBlockMixin",
-    "TeleporterMixin",
-    "WorldMixin"
-  ],
-  "client": [
-    "MinecraftClientMixin",
-    "SignTileEntityRendererMixin"
+    "expanders.ItemSkullAccessor",
+    "snapshot.yr22.w46.BlockNoteMixin",
+    "snapshot.yr22.w46.TileEntityNoteMixin"
   ]
 }
