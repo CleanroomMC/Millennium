@@ -2,7 +2,7 @@
 {
   "modid": "millennium",
   "name": "Millennium",
-  "description": "Bringing vanilla features from 1.12+ => 1.12.",
+  "description": "Bringing vanilla features from other Minecraft versions to 1.12.2.",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",

@@ -9,9 +9,10 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 
-@IFMLLoadingPlugin.Name("Millennium|Core")
+@IFMLLoadingPlugin.Name("Millennium | Core")
 @IFMLLoadingPlugin.MCVersion(ForgeVersion.mcVersion)
 public class MillenniumCore implements IFMLLoadingPlugin, IEarlyMixinLoader {
+
     @Override
     public String[] getASMTransformerClass() {
         return new String[0];
@@ -29,8 +30,7 @@ public class MillenniumCore implements IFMLLoadingPlugin, IEarlyMixinLoader {
     }
 
     @Override
-    public void injectData(Map<String, Object> data) {
-    }
+    public void injectData(Map<String, Object> data) { }
 
     @Override
     public String getAccessTransformerClass() {
@@ -41,4 +41,5 @@ public class MillenniumCore implements IFMLLoadingPlugin, IEarlyMixinLoader {
     public List<String> getMixinConfigs() {
         return Lists.newArrayList("mixin.millennium.json");
     }
+
 }
