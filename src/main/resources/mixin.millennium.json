@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.cleanroommc.millennium.core.mixins",
+  "package": "com.cleanroommc.millennium.core.mixin",
   "compatibilityLevel": "JAVA_8",
   "refmap": "millennium.refmap.json",
   "mixins": [

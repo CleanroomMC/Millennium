@@ -1,4 +1,4 @@
-package com.cleanroommc.millennium.core.mixins.snapshot.yr22.w46;
+package com.cleanroommc.millennium.core.mixin.snapshot.yr22.w46;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSkull;

@@ -1,4 +1,4 @@
-package com.cleanroommc.millennium.core.mixins.expanders;
+package com.cleanroommc.millennium.core.mixin.expanders;
 
 import net.minecraft.item.ItemSkull;
 import org.spongepowered.asm.mixin.Mixin;

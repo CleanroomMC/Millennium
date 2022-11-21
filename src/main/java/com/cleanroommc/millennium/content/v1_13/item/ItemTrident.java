@@ -1,4 +1,4 @@
-package com.cleanroommc.millennium.content.v1_13.items;
+package com.cleanroommc.millennium.content.v1_13.item;
 
 import com.cleanroommc.millennium.content.v1_13.Version1_13;
 import com.google.common.collect.Multimap;

@@ -1,6 +1,6 @@
-package com.cleanroommc.millennium.core.mixins.snapshot.yr22.w46;
+package com.cleanroommc.millennium.core.mixin.snapshot.yr22.w46;
 
-import com.cleanroommc.millennium.core.mixins.expanders.ItemSkullAccessor;
+import com.cleanroommc.millennium.core.mixin.expanders.ItemSkullAccessor;
 import net.minecraft.block.BlockNote;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.SoundEvents;
